@@ -1,0 +1,1574 @@
+{
+  "name": "ENTREGA-FINAL-VERNET",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "03614abc-e378-4c83-bebc-16a8b1c01714",
+              "name": "row_number",
+              "value": "={{ $('Get Rows').item.json.row_number }}",
+              "type": "number"
+            },
+            {
+              "id": "980cf995-cdb7-497f-a6a4-ed897a041ced",
+              "name": "var_id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "a498de5f-9a22-4d46-a45c-7853f87ec280",
+              "name": "Pokemon",
+              "value": "={{ $('Get Rows').item.json.Pokemon }}",
+              "type": "string"
+            },
+            {
+              "id": "8ff70db9-9600-41c2-9532-553db9e25e57",
+              "name": "var_tipo",
+              "value": "={{ $json.types[0].type.name }}",
+              "type": "string"
+            },
+            {
+              "id": "1af3ee08-faf3-4317-ae14-12043bd99c78",
+              "name": "=stats_hp",
+              "value": "={{ $json.stats[0].base_stat }}",
+              "type": "number"
+            },
+            {
+              "id": "2fbbfd24-55c8-45c8-b24d-ed25b391812e",
+              "name": "stats_attack",
+              "value": "={{ $json.stats[1].base_stat }}",
+              "type": "number"
+            },
+            {
+              "id": "2d7e5f38-af14-4208-a695-07adc93fce19",
+              "name": "stats_defense",
+              "value": "={{ $json.stats[2].base_stat }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -576,
+        240
+      ],
+      "id": "f0ad24c3-6fb6-49bd-837a-fe9bde6e8eb9",
+      "name": "Mapeo Informacion",
+      "executeOnce": false,
+      "notes": "Mapeo la informacion para tener lo que necesito en una sola tabla"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Rol }}",
+                    "rightValue": "-",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "edb0e79f-e0cc-49f7-88ce-2de4e5ae6894"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "NO EXISTE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b4a01616-e7b2-4d82-87d6-25b2c2b3fd1e",
+                    "leftValue": "={{ $json.Rol }}",
+                    "rightValue": "ATACANTE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ATACANTE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5704b700-9bb8-46ea-bab6-078890c7b2b1",
+                    "leftValue": "={{ $json.Rol }}",
+                    "rightValue": "TANQUE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "TANQUE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2c03787d-f0cf-4b95-95b4-a49a8c46f1b6",
+                    "leftValue": "={{ $json.Rol }}",
+                    "rightValue": "EQUILIBRADO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "EQUILIBRADO"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        1120,
+        384
+      ],
+      "id": "433c09bf-3ffa-47d5-a10a-437148663dd9",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"colors\": {\n  \"yellow\": { \"red\": 0.99, \"green\": 0.91, \"blue\": 0.70 },\n  \"celeste\": { \"red\": 0.53, \"green\": 0.81, \"blue\": 0.98 },\n  \"green\":   {\"red\": 0.72, \"green\": 0.88, \"blue\": 0.80 },\n  \"orange\":  { \"red\": 1.0, \"green\": 0.65, \"blue\": 0.0 },\n  \"rojo\": {\"red\": 0.96, \"green\": 0.80, \"blue\": 0.80},\n  \"gris\": {\"red\": 0.78, \"green\": 0.78, \"blue\": 0.78}\n}\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1248,
+        336
+      ],
+      "id": "c8410af8-0c7c-4057-bf24-cf6ca11ae427",
+      "name": "Config_Colors",
+      "notes": "tengo establecido previamente los colores"
+    },
+    {
+      "parameters": {
+        "url": "={{ $vars.urlApiPokemon }}{{ $('Get Rows').item.json.Pokemon }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -1024,
+        336
+      ],
+      "id": "69aa88f7-0496-49b4-8a1c-6cc7de7cf85a",
+      "name": "GET - Api Pokemon",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "onError": "continueRegularOutput",
+      "notes": "Busco el pokemon que se ingreso para obtener el ID y el TIPO"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c9ee94c3-71f4-4409-80d6-1b96379c2c18",
+              "leftValue": "={{ $json.var_id }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        144
+      ],
+      "id": "ae4ccdd6-d6e7-4fe0-b9d8-12a27397ee20",
+      "name": "Existe el Pokemon?",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1568,
+        288
+      ],
+      "id": "a5e28204-f019-41c5-9ce1-6dbd752275aa",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "657fe8c4-9700-4d86-874b-860a1b5d8005",
+              "name": "row_number",
+              "value": "={{ $json.row_number }}",
+              "type": "number"
+            },
+            {
+              "id": "980cf995-cdb7-497f-a6a4-ed897a041ced",
+              "name": "var_id",
+              "value": "=0",
+              "type": "number"
+            },
+            {
+              "id": "6b49ef22-933d-478a-b2e8-89936787b34f",
+              "name": "Pokemon",
+              "value": "={{ $json.Pokemon }}",
+              "type": "string"
+            },
+            {
+              "id": "8ff70db9-9600-41c2-9532-553db9e25e57",
+              "name": "var_tipo",
+              "value": "=-",
+              "type": "string"
+            },
+            {
+              "id": "b491b2e3-48de-45c1-9a04-4fec568e9565",
+              "name": "Rol",
+              "value": "-",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        224
+      ],
+      "id": "d1ef154a-9cd7-4b3a-a8e9-9c0ca22548e4",
+      "name": "Pokemon No Existe",
+      "notes": "De todo el JSON que trae la API de Pokemon, Obtengo solo el tipo.\nY tambien separo el ID del pokemon del sheets"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM",
+          "mode": "list",
+          "cachedResultName": "Mis-Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit#gid=0"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1920,
+        336
+      ],
+      "id": "fdeaab12-b7ee-4536-afd2-d50c9c6891f3",
+      "name": "Add Row in Sheets",
+      "notesInFlow": true,
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "P2xMPiXXz6kbItBM",
+          "name": "Google Sheets Trigger account"
+        }
+      },
+      "notes": "Cuando se agrega una nueva fila se ejecuta el flujo, lo chequea cada 1 min"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM",
+          "mode": "list",
+          "cachedResultName": "Mis-Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit#gid=0"
+        },
+        "options": {
+          "dataLocationOnSheet": {
+            "values": {
+              "rangeDefinition": "detectAutomatically",
+              "readRowsUntil": "firstEmptyRow"
+            }
+          },
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1696,
+        336
+      ],
+      "id": "6eca7011-b905-4eb0-87fe-8dee5b0c2b6e",
+      "name": "Get Rows",
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      },
+      "notes": "Obtengo la informacion de la shee. principalmente el numero de filas"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM",
+          "mode": "list",
+          "cachedResultName": "Mis-Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{ $json.var_id }}",
+            "Pokemon": "={{ $json.Pokemon }}",
+            "Tipo": "={{ $json.var_tipo }}",
+            "row_number": "={{ $json.row_number }}",
+            "Rol": "={{ $json.Rol }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pokemon",
+              "displayName": "Pokemon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Rol",
+              "displayName": "Rol",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        896,
+        144
+      ],
+      "id": "c40f1870-1447-4005-ab56-74fe2f352357",
+      "name": "Update Row",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "Updateo la informacion de la sheet"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"repeatCell\": {\n        \"range\": {\n          \"sheetId\": 0,\n          \"startRowIndex\":{{ $json.row_number-1 }},\n          \"endRowIndex\": {{ $json.row_number }},\n          \"startColumnIndex\": 0,\n          \"endColumnIndex\": 4\n        },\n        \"cell\": {\n          \"userEnteredFormat\": {\n            \"backgroundColor\": {\n              \"red\": {{ $('Config_Colors').first().json.colors.gris.red }},\n              \"green\": {{ $('Config_Colors').first().json.colors.gris.green }},\n              \"blue\": {{ $('Config_Colors').first().json.colors.gris.blue }}\n            }\n          }\n        },\n        \"fields\": \"userEnteredFormat.backgroundColor\"\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1344,
+        128
+      ],
+      "id": "d826fe22-1c31-41fc-955f-9fe1bff1f43e",
+      "name": "Pintar NO EXISTE",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"repeatCell\": {\n        \"range\": {\n          \"sheetId\": 0,\n          \"startRowIndex\": {{ $json.row_number-1 }},\n          \"endRowIndex\": {{ $json.row_number }},\n          \"startColumnIndex\": 0,\n          \"endColumnIndex\": 4\n        },\n        \"cell\": {\n          \"userEnteredFormat\": {\n            \"backgroundColor\": {\n              \"red\": {{ $('Config_Colors').first().json.colors.rojo.red }},\n              \"green\": {{ $('Config_Colors').first().json.colors.rojo.green }},\n              \"blue\": {{ $('Config_Colors').first().json.colors.rojo.blue }}\n            }\n          }\n        },\n        \"fields\": \"userEnteredFormat.backgroundColor\"\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1344,
+        320
+      ],
+      "id": "5e42be51-de84-4df7-be8c-533cc39b55c0",
+      "name": "Pintar ATACANTE",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"repeatCell\": {\n        \"range\": {\n          \"sheetId\": 0,\n          \"startRowIndex\": {{ $json.row_number-1 }},\n          \"endRowIndex\": {{ $json.row_number }},\n          \"startColumnIndex\": 0,\n          \"endColumnIndex\": 4\n        },\n        \"cell\": {\n          \"userEnteredFormat\": {\n            \"backgroundColor\": {\n              \"red\": {{ $('Config_Colors').first().json.colors.celeste.red }},\n              \"green\": {{ $('Config_Colors').first().json.colors.celeste.green }},\n              \"blue\": {{ $('Config_Colors').first().json.colors.celeste.blue }}\n            }\n          }\n        },\n        \"fields\": \"userEnteredFormat.backgroundColor\"\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1344,
+        512
+      ],
+      "id": "9765ea61-80b3-485b-9d33-9de1ba7e155e",
+      "name": "Pintar TANQUE",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://sheets.googleapis.com/v4/spreadsheets/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleSheetsOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"repeatCell\": {\n        \"range\": {\n          \"sheetId\": 0,\n          \"startRowIndex\": {{ $json.row_number-1 }},\n          \"endRowIndex\": {{ $json.row_number }},\n          \"startColumnIndex\": 0,\n          \"endColumnIndex\": 4\n        },\n        \"cell\": {\n          \"userEnteredFormat\": {\n            \"backgroundColor\": {\n              \"red\": {{ $('Config_Colors').first().json.colors.green.red }},\n              \"green\": {{ $('Config_Colors').first().json.colors.green.green }},\n              \"blue\": {{ $('Config_Colors').first().json.colors.green.blue }}\n            }\n          }\n        },\n        \"fields\": \"userEnteredFormat.backgroundColor\"\n      }\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1344,
+        704
+      ],
+      "id": "fad27711-401c-4021-bf4e-4565915ebfc9",
+      "name": "Pintar EQUILIBRADO",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.0-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.0-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Actúa como un analista de datos de Pokémon. Analiza las siguientes estadísticas y tipos del Pokémon.\n\nBasado en sus stats (especialmente si tiene alta defensa, alto ataque o alta hp), clasifícalo en UNA de estas 3 categorías exclusivamente:\n\nTANQUE (Si su HP o Defensa son sus stats más altos y dominantes.).\n\nATACANTE (Si su Ataque es su stats más alto y dominante).\n\nEQUILIBRADO (Si todos sus stats son parejos y diferencia menor a 10 puntos entre ellos).\n\nSi el {{ $json.var_id }} es null o undefined la Categoria es: -\n\nLos stats del Pokemon: {{ $json.Pokemon }} son: HP:{{ $json.stats_hp }}, Ataque:{{ $json.stats_attack }} y Defensa:{{ $json.stats_defense }}\n\nResponde SOLAMENTE con la palabra de la categoría."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -352,
+        240
+      ],
+      "id": "f0f61ef0-c6ed-4679-8700-642c82ffdf0b",
+      "name": "LLM Clasificador",
+      "retryOnFail": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "tW1LZxLr4cCUqtpb",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.0-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.0-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Eres un asistente personal en Telegram. Tienes que notificar al usuario que se ha registrado un nuevo Pokémon.\n\nTienes dos inputs:\n\nEl Rol del Pokemon: {{ $('Switch').item.json.Rol }}\n\nEl nombre del Pokémon: {{ $('Switch').item.json.Pokemon }}\n\nTu tarea: Escribe un mensaje corto para Telegram. Usa emojis. Se euforico.\n\nEn el caso de que el Rol no este definido, inventa una frase (ej: el Pokemon {{ $('Switch').item.json.Pokemon }} no se pudo identificar, seguiremos buscando)\n\nComenza con un titulo inventado (ej: ¡Atencion Entrenador! Se ha registrado un nuevo...)\n\nContinua anunciando el Pokémon.\n\nMenciona su Rol (La clasificación).\n\nInventa una frase breve de una línea sobre cómo usarlo basada en ese rol (ej: 'Úsalo para proteger a tu equipo' si es Tanque).\n\nEl nombre del Pokemon debe quedar en este formato <b><u>NOMBRE</u></b> en la respuesta"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1792,
+        320
+      ],
+      "id": "ca1755fc-f268-41c9-bdad-662b8e803822",
+      "name": "LLM Respuesta",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "tW1LZxLr4cCUqtpb",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "8004274998",
+        "text": "={{ $json.content.parts[0].text }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2144,
+        320
+      ],
+      "id": "9c4487f9-9bef-492f-8483-a494ee1e731d",
+      "name": "Notificar a Telegram",
+      "webhookId": "cd216217-1e8a-4d6b-9318-12fd4b2a832b",
+      "credentials": {
+        "telegramApi": {
+          "id": "7rxNeyjzgZe06bMq",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0f9051f5-b949-450e-a171-e1d4b40945cf",
+              "leftValue": "={{ $json.Rol }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -1472,
+        336
+      ],
+      "id": "9b16fe3e-a66d-493a-b92d-b6b36fb46b56",
+      "name": "Filter",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "Rol",
+              "field2": "ROL"
+            }
+          ]
+        },
+        "joinMode": "enrichInput1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1568,
+        -144
+      ],
+      "id": "8f1ad9fb-7226-4adc-b444-56381eb5ba9e",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM",
+          "mode": "list",
+          "cachedResultName": "Mis-Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1671466873,
+          "mode": "list",
+          "cachedResultName": "Estadisticas por ROL",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit#gid=1671466873"
+        },
+        "options": {
+          "dataLocationOnSheet": {
+            "values": {
+              "rangeDefinition": "detectAutomatically",
+              "readRowsUntil": "firstEmptyRow"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1344,
+        -80
+      ],
+      "id": "f4bd7474-1809-483f-8f64-9a60c3d61dd0",
+      "name": "Get row(s) TOTAL",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d51aaed-b897-4d28-a7e2-48a0b4a6a6c9",
+              "name": "row_number",
+              "value": "={{ $json.row_number }}",
+              "type": "number"
+            },
+            {
+              "id": "6926812a-9aa9-4fef-922e-1693515f7711",
+              "name": "Rol",
+              "value": "={{ $json.Rol }}",
+              "type": "string"
+            },
+            {
+              "id": "1ef2ff47-7c77-4ef1-90a1-04127f2eb344",
+              "name": "TOTAL",
+              "value": "={{ Number($json.TOTAL) + Number($json.count_Rol) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1856,
+        -144
+      ],
+      "id": "0219df78-5031-4130-bcea-e0faa1dd1413",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "## Obtiene las nuevas filas agregadas a la sheet",
+        "height": 112,
+        "width": 272,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1696,
+        144
+      ],
+      "id": "04c88733-59f0-400b-8a5a-85657b991867",
+      "name": "Sticky Note",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Obtenemos los datos de los pokemons",
+        "height": 112,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1088,
+        144
+      ],
+      "id": "54473094-1027-428d-986a-94ddd48bcd41",
+      "name": "Sticky Note1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Clasificamos por un rol segun stats del Pokemon",
+        "height": 112,
+        "width": 272,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        48
+      ],
+      "id": "d90df949-dba4-48f5-b0b1-9ce98fd9b1bf",
+      "name": "Sticky Note2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "## Actualizamos la informacion de los Pokemons"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        736,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "d8eb6f35-c810-492d-9a11-e1508b28a80c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Actualizamos Estadisticas de la cantidades de roles"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1456,
+        -368
+      ],
+      "typeVersion": 1,
+      "id": "af5f804b-e4e9-4b4a-a6b9-6799da37dab3",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Pintamos segun el rol establecido"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1296,
+        944
+      ],
+      "typeVersion": 1,
+      "id": "a842c71a-620e-4f38-8786-9b3784d71c98",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Armamos una respuesta para notificar por Telegram sobre el nuevo Pokemon",
+        "height": 192,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1792,
+        544
+      ],
+      "typeVersion": 1,
+      "id": "6e966a2e-49f7-40b8-97eb-452d208bd078",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b4923ff7-9ea9-4c0d-91ee-d3e49f030038",
+              "name": "row_number",
+              "value": "={{ $('Mapeo Informacion').item.json.row_number }}",
+              "type": "number"
+            },
+            {
+              "id": "72b78a6c-022c-48d2-972e-eba2fdfa57be",
+              "name": "var_id",
+              "value": "={{ $('Mapeo Informacion').item.json.var_id }}",
+              "type": "number"
+            },
+            {
+              "id": "4070ec78-db38-4efc-a4f9-7c86aca92fb6",
+              "name": "Pokemon",
+              "value": "={{ $('Mapeo Informacion').item.json.Pokemon }}",
+              "type": "string"
+            },
+            {
+              "id": "b39713a4-decc-4f3c-a081-aaff68672018",
+              "name": "var_tipo",
+              "value": "={{ $('Mapeo Informacion').item.json.var_tipo }}",
+              "type": "string"
+            },
+            {
+              "id": "6e8e8f31-e128-4045-b03e-00079fa3f3b0",
+              "name": "stats_hp",
+              "value": "={{ $('Mapeo Informacion').item.json.stats_hp }}",
+              "type": "number"
+            },
+            {
+              "id": "7b9c6e19-d631-4920-8066-24274e677130",
+              "name": "stats_attack",
+              "value": "={{ $('Mapeo Informacion').item.json.stats_attack }}",
+              "type": "number"
+            },
+            {
+              "id": "c7ef08b6-ae2d-47db-99e2-ee9f6d688353",
+              "name": "stats_defense",
+              "value": "={{ $('Mapeo Informacion').item.json.stats_defense }}",
+              "type": "number"
+            },
+            {
+              "id": "48b548fc-9433-4bbc-8c82-c40ce0b99182",
+              "name": "Rol",
+              "value": "={{ $json.content.parts[0].text.replace(\"\\n\",\"\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        144
+      ],
+      "id": "48929222-9d26-450c-a8d8-d9c32b3e91bb",
+      "name": "Mapeo LLM Clasificador"
+    },
+    {
+      "parameters": {
+        "fieldsToSummarize": {
+          "values": [
+            {
+              "field": "Rol"
+            }
+          ]
+        },
+        "fieldsToSplitBy": "Rol",
+        "options": {
+          "skipEmptySplitFields": true
+        }
+      },
+      "type": "n8n-nodes-base.summarize",
+      "typeVersion": 1.1,
+      "position": [
+        1120,
+        -144
+      ],
+      "id": "14d2e479-fbb8-4bc5-ae3b-e75de55d9c29",
+      "name": "Contar",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM",
+          "mode": "list",
+          "cachedResultName": "Mis-Pokemons",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1671466873,
+          "mode": "list",
+          "cachedResultName": "Estadisticas por ROL",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10exTpS0h2ENvE5Zr-hec3ZXuyXbnbtU_6aCmMVowuTM/edit#gid=1671466873"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "TOTAL": "={{ $json.TOTAL }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "ROL",
+              "displayName": "ROL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "TOTAL",
+              "displayName": "TOTAL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2144,
+        -144
+      ],
+      "id": "f02efbbc-f9ae-468f-a5fc-4ffc741b21a2",
+      "name": "Update Totales",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SfGocuayY3kT9qTJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f2a09fa6-41f0-4530-88bd-f7166b2b6f1e",
+              "leftValue": "={{ $json.error.message}}",
+              "rightValue": "500",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -800,
+        336
+      ],
+      "id": "9edc114c-f824-4ea8-854a-5d961d95f482",
+      "name": "La API Funcionó?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e1b8d105-4361-4607-9a68-4bd0b0f77468",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "2b604d51-1b2f-44e9-9096-505762dfdcab",
+              "leftValue": "={{ ['ATACANTE', 'TANQUE', 'EQUILIBRADO', '-'].includes($json.content.parts[0].text.trim()) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        240
+      ],
+      "id": "8720fff3-9c5c-443c-80ed-767b03389e23",
+      "name": "LLM Ok?"
+    },
+    {
+      "parameters": {
+        "sendTo": "federicovernet@gmail.com",
+        "subject": "Error en API Pokemon",
+        "message": "={{ $json.error.message}} +\\n +{{ $json.error.stack }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -576,
+        432
+      ],
+      "id": "7671500f-de08-4b88-944a-d3817906806f",
+      "name": "Send a ERROR",
+      "webhookId": "7264f7a9-f045-41b3-b880-d10c4c52d59e",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W9nl5gkEZedncYlx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "federicovernet@gmail.com",
+        "subject": "Error en LLM Clasificador",
+        "message": "={{ $json.error }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        336
+      ],
+      "id": "2faaa0f9-c1b0-4aa1-824d-e404fb722bf6",
+      "name": "Send a ERROR 2",
+      "webhookId": "7264f7a9-f045-41b3-b880-d10c4c52d59e",
+      "retryOnFail": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W9nl5gkEZedncYlx",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Mapeo Informacion": {
+      "main": [
+        [
+          {
+            "node": "LLM Clasificador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config_Colors": {
+      "main": [
+        [
+          {
+            "node": "GET - Api Pokemon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Pintar NO EXISTE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pintar ATACANTE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pintar TANQUE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pintar EQUILIBRADO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET - Api Pokemon": {
+      "main": [
+        [
+          {
+            "node": "La API Funcionó?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Existe el Pokemon?": {
+      "main": [
+        [
+          {
+            "node": "Update Row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pokemon No Existe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "LLM Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pokemon No Existe": {
+      "main": [
+        [
+          {
+            "node": "Update Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Row in Sheets": {
+      "main": [
+        [
+          {
+            "node": "Get Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Rows": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Row": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Contar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pintar NO EXISTE": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pintar ATACANTE": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Pintar TANQUE": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Pintar EQUILIBRADO": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "LLM Clasificador": {
+      "main": [
+        [
+          {
+            "node": "LLM Ok?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Respuesta": {
+      "main": [
+        [
+          {
+            "node": "Notificar a Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Config_Colors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar a Telegram": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) TOTAL": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Update Totales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mapeo LLM Clasificador": {
+      "main": [
+        [
+          {
+            "node": "Existe el Pokemon?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contar": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) TOTAL",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "La API Funcionó?": {
+      "main": [
+        [
+          {
+            "node": "Mapeo Informacion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a ERROR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Ok?": {
+      "main": [
+        [
+          {
+            "node": "Mapeo LLM Clasificador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a ERROR 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "d47b948d-adaf-46fe-8dd3-6ac885975408",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b84ba7cbbd6ba89637e5b7b16c24085933c7bf13c23543406ae71b88966f416d"
+  },
+  "id": "v9W0eFKe17h41ssD",
+  "tags": []
+}

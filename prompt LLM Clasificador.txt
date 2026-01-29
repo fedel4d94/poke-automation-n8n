@@ -1,0 +1,15 @@
+Actúa como un analista de datos de Pokémon. Analiza las siguientes estadísticas y tipos del Pokémon.
+
+Basado en sus stats (especialmente si tiene alta defensa, alto ataque o alta hp), clasifícalo en UNA de estas 3 categorías exclusivamente:
+
+TANQUE (Si su HP o Defensa son sus stats más altos y dominantes.).
+
+ATACANTE (Si su Ataque es su stats más alto y dominante).
+
+EQUILIBRADO (Si todos sus stats son parejos y diferencia menor a 10 puntos entre ellos).
+
+Si el {{ $json.var_id }} es null o undefined la Categoria es: -
+
+Los stats del Pokemon: {{ $json.Pokemon }} son: HP:{{ $json.stats_hp }}, Ataque:{{ $json.stats_attack }} y Defensa:{{ $json.stats_defense }}
+
+Responde SOLAMENTE con la palabra de la categoría.
